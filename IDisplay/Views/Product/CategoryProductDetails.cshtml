@@ -1,0 +1,93 @@
+﻿@model IDisplay.Models.Product
+@{
+    ViewBag.Title = "Product Page";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Product Category</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div id="CateID">
+                            </div>
+                        </div>
+                    </div>
+					
+                </div>
+            </div>
+				
+            <div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Product Items</h2>
+                    <div id="ProductsList">
+   
+                    </div>
+						
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            /* Initial Data load for the Company Drop Down */
+
+            $.getJSON("@Url.Action("GetProductCategoryListJsonResult", "Product")",
+                function(data) {
+                    $.each(JSON.parse(data),
+                        function(index, optionaldata) {
+                            //var catID = optionaldata.ProductCategoryId;
+                            $('#CateID').append('<div class="panel panel-default">' +
+                                '<div class="panel-heading">' +
+                                '<h4 class="panel-title"><a href="Product/GetProducts/?productCategoryId=' +
+                                optionaldata.ProductCategoryId +
+                                '">' +
+                                optionaldata.ProductCategoryName +
+                                '</a></h4>' +
+                                '</div>' +
+                                '</div>');
+                        });
+                });
+
+            $.getJSON("@Url.Action("GetProducts", "Product")",
+                function(data) {
+                    $.each(JSON.parse(data),
+                        function (index, optionaldata) {
+                            $('#ProductsList').append(' <div class="col-sm-4">'+
+                                '<div class="product-image-wrapper">'+
+                                '<div class="single-products">'+
+                                '<div class="productinfo text-center">'+
+                                ' <img src="/Content/Images/ItemImages/'+optionaldata.ImageUrl+'" alt="" width="150px" height="200px"/>'+
+                                ' <h2> Rs ' + optionaldata.ProductPrice + '</h2>' +
+                                ' <p>' + optionaldata.ProductName + '</p>' +
+                                ' <a href="#">' + optionaldata.ProductDescription + '</a>' +
+                                '</div>'+
+                                '<div class="product-overlay">'+
+                                '<div class="overlay-content">'+
+                                ' <h2>Rs ' + optionaldata.ProductPrice + '</h2>' +
+                                ' <p>' + optionaldata.ProductName + '</p>' +
+                     
+                                '</div>'+
+                                ' </div>'+
+                                '</div>'+
+                                '<div class="choose">'+
+          
+                                ' </div>'+
+                                ' </div>'+
+                                '</div>');
+
+                        });
+
+                });
+        });
+    </script>
+}
+

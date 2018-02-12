@@ -1,0 +1,28 @@
+﻿
+
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_SellerLayout.cshtml";
+}
+
+<h2>UserProfile</h2>
+<table class="table">
+<th>Username</th>
+<th>Address</th>
+<th>Description</th>
+<th>Email</th>
+    
+
+ 
+    <tr>
+        <td>@ViewBag.userDetails.Username</td>
+        <td>@ViewBag.userDetails.Address</td>
+        <td>@ViewBag.userDetails.Description</td>
+        <td>@ViewBag.userDetails.Email</td>
+
+
+
+        @*<td><a href="CategoryDelete?id=@item.ProductCategoryId" class="btn btn-danger" >Delete</a></td>*@
+    </tr>
+    
+</table>

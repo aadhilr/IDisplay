@@ -1,0 +1,212 @@
+﻿
+@model IEnumerable<IDisplay.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SellerLayout.cshtml";
+}
+
+<div id="ribbon">
+    <h4>Index - Product</h4>
+</div>
+
+<div id="content">
+
+    <section id="widget-grid" class="">
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="alert bg-color-darken">
+
+                    @using (Html.BeginForm("Index", "Product", FormMethod.Get, new { @class = "form-horizontal" }))
+                    {
+                        <fieldset>
+                            <div class="text-right padding">
+                                <a href="@Url.Action("Create", "Product")" class="btn btn-labeled btn-primary">
+                                    <span class="btn-label"><i class="glyphicon glyphicon-plus"></i></span>New Product
+                                </a>
+                            </div>
+                        </fieldset>
+
+                        <div class="row">
+                            &nbsp;
+                        </div>
+
+
+                    
+                    }
+
+                </div>
+
+                @*</div>*@
+
+                @*</div>
+                    </div>*@
+            </article>
+        </div>
+
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-3"
+                     data-widget-editbutton="false"
+                     data-widget-colorbutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-sortable="true">
+
+                    <header>
+                        <span class="widget-icon"><i class="fa fa-list"></i></span>
+                        <h2>All Product Details</h2>
+                    </header>
+
+                    <div>
+                        <div class="jarviswidget-editbox">
+                        </div>
+
+                        <div class="widget-body no-padding">
+                            @*<div class="widget-body-toolbar">
+                                </div>*@
+
+                            <table id="productDataTable" class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductName)
+                                    </th>
+
+                                    @*<th>
+                                        @Html.DisplayNameFor(model => model.UserId)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductCategoryId)
+                                    </th>*@
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductDescription)
+                                    </th> 
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProductPrice)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PromotionalPrice)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ImageUrl)
+                                    </th>
+                                    <th></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductName)
+                                        </td>
+
+                                        @*<td>
+                                            @Html.DisplayFor(modelItem => item.Seller.Username)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductCategory.ProductCategoryName)
+                                        </td>*@
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PromotionalPrice)
+                                        </td>
+                                        <td class="text-center">
+                                            <img src="/Content/Images/ItemImages/@item.ImageUrl" width="50" height="50" alt="temp" />
+                                        </td>
+                                        @*<td class="text-right">
+                                            <a href="@Url.Action("Edit", "product", new { id = item.ProductId })" class="btn btn-labeled btn-default"><span class="btn-label"><i class="glyphicon glyphicon-search"></i></span>Edit</a>
+                                            <a href="#" onclick="deleteItem(@item.ProductId)" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>Delete</a>
+                                        </td>*@
+                                    </tr>
+                                }
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+
+                </div>
+
+
+            </article>
+        </div>
+
+    </section>
+</div>
+
+@section scripts{
+    
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $('#productDataTable').dataTable({
+
+                // Tabletools options:
+                //   https://datatables.net/extensions/tabletools/button_options
+                "aLengthMenu": [[10, 15, 50, 75, 100, -1], [10, 25, 50, 75, 100, "All"]],
+                "aoColumnDefs": [
+                    { "bSortable": false, "aTargets": [5] }
+                ],
+                "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" +
+                    "t" +
+                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+                "oTableTools": {
+                    "aButtons": [
+                        //"copy",
+                        //"csv",
+                        //"xls",
+                        //{
+                        //    "sExtends": "pdf",
+                        //    "sTitle": "SmartAdmin_PDF",
+                        //    "sPdfMessage": "SmartAdmin PDF Export",
+                        //    "sPdfSize": "letter"
+                        //},
+                        //{
+                        //    "sExtends": "print",
+                        //    "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+                        //}
+                    ],
+                    "sSwfPath": "/Content/Themes/GlassTheme/js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+                },
+                "autoWidth": true,
+                "preDrawCallback": function () {
+                    // Initialize the responsive datatables helper once.
+                    if (!responsiveHelper_datatable_tabletools) {
+                        responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#productDataTable'), breakpointDefinition);
+                    }
+                },
+                "rowCallback": function (nRow) {
+                    responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+                },
+                "drawCallback": function (oSettings) {
+                    responsiveHelper_datatable_tabletools.respond();
+                }
+            });
+
+
+
+
+
+        });
+
+    </script>
+}
+

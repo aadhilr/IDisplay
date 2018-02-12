@@ -1,0 +1,158 @@
+﻿@model IDisplay.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_SellerLayout.cshtml";
+}
+<div class="container">
+        @*@if (ViewBag.SuccessMsg != null)
+        {*@
+              
+        
+        
+        <p>@ViewBag.SuccessMsg</p> 
+        @using (Html.BeginForm("Create", "Product", FormMethod.Post, new {@class = "form-horizontal", enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @ViewBag.SuccessMsg
+          
+           
+            <div class="card-header">
+                <h2>Create a New Product </h2>
+            </div>
+            <input type="hidden" value="@Session["UserID"]" id="UserId" name="UserId"/>
+
+
+
+            <div class="form-group">
+
+                @*@Html.DisplayNameFor(model => model.ProductCategoryId)*@
+                @Html.LabelFor(model => model.ProductCategoryId, new {@class = "col-sm-4 control-label"})
+
+                <div class="col-sm-6">
+                    <div class="fg-line">
+                        <select id="ProductCategoryId" name="ProductCategoryId" class="form-control"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductName, new {@class = "col-sm-4 control-label"})
+                <div class="col-sm-6">
+                    <div class="fg-line">
+                        @Html.TextBoxFor(model => model.ProductName, new {@class = "form-control input-sm", @placeholder = "Enter Product Name"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductDescription, new {@class = "col-sm-4 control-label"})
+                <div class="col-sm-6">
+                    <div class="fg-line">
+                        @Html.TextBoxFor(model => model.ProductDescription, new {@class = "form-control input-sm", @placeholder = "Enter Description"})
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductPrice, new {@class = "col-sm-4 control-label"})
+                <div class="col-sm-6">
+                    <div class="fg-line">
+                        @Html.TextBoxFor(model => model.ProductPrice, new {@class = "form-control input-sm", @placeholder = "Enter the Price"})
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PromotionalPrice, new { @class = "col-sm-4 control-label" })
+                <div class="col-sm-6">
+                    <div class="fg-line">
+                        @Html.TextBoxFor(model => model.PromotionalPrice, new { @class = "form-control input-sm", @placeholder = "Enter the Price" })
+                    </div>
+                </div>
+            </div>
+   
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageUrl, new {@class = "col-sm-4 control-label"})
+                <div class="col-sm-6">
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-12 padding-10">
+                        <input type="file" name="productImg" id="file"/>
+
+                    </div>
+                </div>
+            </div>
+            <div id="ProductId"></div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" id="prodSubmit" class="btn btn-primary btn-sm button-fixed-width">Save</button>
+                </div>
+            </div>
+
+        }
+    </div>
+
+
+
+@section scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            /* Initial Data load for the Company Drop Down */
+
+            $.getJSON("@Url.Action("GetUserListJsonResult", "Product")", function (data) { //getting the json data from product controller, action name GetUserListJsonResult
+
+                var categoryDropDown = $("#UserId");
+
+                categoryDropDown.empty();
+                categoryDropDown.append("<option value='0'>-- Select User --</option>");
+
+                $.each(JSON.parse(data), function (index, optionaldata) {
+
+                    $.each(JSON.parse(data), function (index, optionaldata) {
+                        categoryDropDown.append($('<option />', { value: optionaldata.SellerId }).html(optionaldata.Username));
+                    });
+
+                    $('#UserId').val(@ViewBag.SellerId).attr("selected", "selected");
+
+
+
+                });
+
+
+            });
+
+            $.getJSON("@Url.Action("GetProductCategoryListJsonResult", "Product")", function(data) { //getting the json data from productcategory controller
+
+                var categoryDropDown = $("#ProductCategoryId");
+
+                categoryDropDown.empty();
+                categoryDropDown.append("<option value='0'>-- Select Category --</option>");
+
+                $.each(JSON.parse(data), function (index, optionaldata) {
+
+                    $.each(JSON.parse(data), function (index, optionaldata) {
+                        categoryDropDown.append($('<option />', { value: optionaldata.ProductCategoryId }).html(optionaldata.ProductCategoryName));
+                    });
+
+                    $('#ProductCategoryId').val(@ViewBag.ProductCategoryId).attr("selected", "selected"); //populating the drop down
+
+
+
+                });
+
+
+            });
+
+        });
+
+
+          
+
+   
+    </script>
+}

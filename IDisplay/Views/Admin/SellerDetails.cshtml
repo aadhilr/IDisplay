@@ -1,0 +1,36 @@
+﻿@model IEnumerable<IDisplay.Models.Seller>
+@{
+    ViewBag.Title = "SellerDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>SellerDetails</h2>
+<table class="table">
+    <th>Username</th>
+    <th>Address</th>
+    <th>Description</th>
+    <th>Email</th>
+    <th>Active</th>
+    
+    @foreach (var item in ViewBag.sellerDetails)
+    {
+        <tr>
+            <td>@item.Username</td>
+            <td>@item.Address</td>
+            <td>@item.Description</td>
+            <td>@item.Email</td>
+            <td>@if (item.Active == false)
+                {
+                    <a href="active?id=@item.SellerId" class="btn btn-success">Activate</a>
+            }
+            else
+            {
+                <a href="deactive?id=@item.SellerId" class="btn btn-danger">Deactivate</a>
+            }
+
+             </td>
+            
+            @*<td><a href="CategoryDelete?id=@item.ProductCategoryId" class="btn btn-danger" >Delete</a></td>*@
+        </tr>
+    }
+</table>

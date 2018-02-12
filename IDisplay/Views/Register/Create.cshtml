@@ -1,0 +1,223 @@
+﻿@using System.ServiceModel.Security
+@model IDisplay.Models.Seller
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row main">
+        <div class="main-login main-center">
+            <h5>Sign up here</h5>
+            @using (Html.BeginForm("Create", "Register", FormMethod.Post, new {@class = "form-horizontal"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @ViewBag.SuccessMsg
+                @ViewBag.ErrorMsg
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username ,new { @class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor( model => model.Username, new { @id = "Username", @class = "form-control input-sm", @placeholder = "Enter Username"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Username, null, new { @class = "help-block" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.PasswordFor(model => model.Password, new {@class = "form-control input-sm", @placeholder = "Enter password"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "help-block" })
+                    </div>
+                </div>
+           
+
+                @*<div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.ConfirmPassword, new {@class = "form-control input-sm", @placeholder = "Re enter password"})
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.Address, new { @id ="autocomplete", @class = "form-control input-sm", @placeholder = "Enter Your Address"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Address, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.Description, new {@class = "form-control input-sm", @placeholder = "Enter a short description" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.Email, new {@class = "form-control input-sm", @placeholder = "Enter Your Email Address"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "help-block" })
+                    </div>
+                </div>
+                
+               
+                    @*@Html.LabelFor(model => model.Active ,new {@class = "col-sm-4 control-label"})*@
+                    
+                            @Html.HiddenFor(model => model.Active, new { @value = false,@class = "form-control input-sm"})
+                       
+                
+               
+                            @*@Html.HiddenFor(model => model.Role, new { @value ="Admin",@class = "form-control input-sm"})*@
+                            <input type="hidden" name="role" id="Role" value="Seller">
+                        
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Latitude ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.Latitude, new { @id ="latitude", @class = "form-control input-sm", @placeholder = "Latitude" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Longitude ,new {@class = "col-sm-4 control-label"})
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            @Html.TextBoxFor(model => model.Longitude, new { @id = "longitude", @class = "form-control input-sm", @placeholder = "Longitude" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" onclick="SetValidationStyleForForm('NewAccount')" class="btn btn-primary btn-sm button-fixed-width">Save</button>
+                    </div>
+                </div>
+
+       
+           
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+@Scripts.Render("~/bundles/jqueryval")
+    <script>
+        
+        if ($("#Username").val() != "-1") {
+            $.ajax({
+                url: "@Url.Action("CheckDuplicateUser", "Register")",
+                type: 'GET',
+                dataType: "json",
+            });
+        }
+        $("#autocomplete").on('focus',
+            function() {
+                geolocate();
+            });
+
+        var placeSearch, autocomplete;
+        var componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initialize() {
+            // Create the autocomplete object, restricting the search
+            // to geographical location types.
+            autocomplete = new google.maps.places.Autocomplete(
+                (document.getElementById('autocomplete')),
+                {
+                    types: ['geocode']
+                });
+            // When the user selects an address from the dropdown,
+            // populate the address fields in the form.
+            google.maps.event.addListener(autocomplete,
+                'place_changed',
+                function() {
+                    fillInAddress();
+                });
+        }
+
+        // [START region_fillform]
+        function fillInAddress() {
+            // Get the place details from the autocomplete object.
+            var place = autocomplete.getPlace();
+
+            document.getElementById("latitude").value = place.geometry.location.lat();
+            document.getElementById("longitude").value = place.geometry.location.lng();
+
+            for (var component in componentForm) {
+                document.getElementById(component).value = '';
+                document.getElementById(component).disabled = false;
+            }
+
+            // Get each component of the address from the place details
+            // and fill the corresponding field on the form.
+            for (var i = 0; i < place.address_components.length; i++) {
+                var addressType = place.address_components[i].types[0];
+                if (componentForm[addressType]) {
+                    var val = place.address_components[i][componentForm[addressType]];
+                    document.getElementById(addressType).value = val;
+                }
+            }
+        }
+        // [END region_fillform]
+
+        // [START region_geolocation]
+        // Bias the autocomplete object to the user's geographical location,
+        // as supplied by the browser's 'navigator.geolocation' object.
+        function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var geolocation = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude);
+
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    document.getElementById("latitude").value = latitude;
+                    document.getElementById("longitude").value = longitude;
+
+                    autocomplete.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+                });
+            }
+
+        }
+
+        initialize();
+        // [END region_geolocation]
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1bzpflffOue_EQaaWn8IWLWvgAI8W5w8&libraries=places&callback=initialize" async defer></script>
+}
