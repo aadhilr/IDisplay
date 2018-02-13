@@ -4,32 +4,63 @@
 }
 
 <section>
-<div class="container">
-<div class="row">
-<div class="col-sm-3">
-    <div class="left-sidebar">
-        <h2>Category</h2>
-        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-            <div class="panel panel-default">
-                <div id="CateID">
-                </div>
-             </div>
-        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        <div class="panel panel-default">
+                            <div id="CateID">
+                            </div>
+                        </div>
+                    </div>
 					
-    </div>
-</div>
+                </div>
+            </div>
 				
-<div class="col-sm-9 padding-right">
-<div class="features_items"><!--features_items-->
-    <h2 class="title text-center">Product Items</h2>
-    <div id="ProductsList">
+            <div class="col-sm-9 padding-right">
+                <div class="features_items"><!--features_items-->
+                    <h2 class="title text-center">Product Items</h2>
+                    <div id="ProductsList">
    
-    </div>
+                    </div>
 						
-</div><!--features_items-->
-</div>
-</div>
-</div>
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @using (Html.BeginForm("ValidateCommand", "PayPal"))
+        {
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            product Name:
+                        </td>
+                        <td>
+                            <input type="text" name="product" value="Visual Studio 2013" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total Price:
+                        </td>
+                        <td>
+                            $<input type="text" name="totalPrice" value="14800" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" name="btnConfirm" value="Check Out with Paypal" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+       </div>
 </section>
 
 @section scripts

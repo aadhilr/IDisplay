@@ -244,5 +244,3 @@ F:\works\IDisplay\IDisplay\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\works\IDisplay\IDisplay\obj\Debug\IDisplay.csprojResolveAssemblyReference.cache
 F:\works\IDisplay\IDisplay\obj\Debug\IDisplay.dll
 F:\works\IDisplay\IDisplay\obj\Debug\IDisplay.pdb
-F:\works\IDisplay\IDisplay\obj\Debug\IDisplay.Migrations._12334.resources
-F:\works\IDisplay\IDisplay\obj\Debug\IDisplay.csproj.GenerateResource.Cache

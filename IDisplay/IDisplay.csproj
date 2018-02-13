@@ -197,6 +197,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
     <Compile Include="Controllers\ProductCategoryController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
@@ -205,11 +206,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710211724428_12334.cs" />
-    <Compile Include="Migrations\201710211724428_12334.Designer.cs">
-      <DependentUpon>201710211724428_12334.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\PayPalModel.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\Seller.cs" />
@@ -370,6 +368,8 @@
     <Content Include="Views\ProductCategory\Delete.cshtml" />
     <Content Include="Views\Register\Location.cshtml" />
     <Content Include="Views\Seller\Profile.cshtml" />
+    <Content Include="Views\PayPal\ValidateCommand.cshtml" />
+    <Content Include="Views\PayPal\NotifyFromPaypal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,11 +383,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710211724428_12334.resx">
-      <DependentUpon>201710211724428_12334.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
